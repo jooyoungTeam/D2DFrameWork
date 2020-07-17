@@ -61,6 +61,15 @@
     <Filter Include="playGround\test">
       <UniqueIdentifier>{df2bdbe2-143d-474f-94e7-28fa98048217}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\enemyManager">
+      <UniqueIdentifier>{c0596cd3-8c85-4ada-966a-06cac32f9e49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\player">
+      <UniqueIdentifier>{2bfcd00e-fc44-4080-ba23-556aa3c429a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\enemyManager\enemy">
+      <UniqueIdentifier>{e77b72b9-4caf-4276-8fbb-617c507b08a7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -153,8 +162,14 @@
     <ClInclude Include="UI.h">
       <Filter>playGround\UI</Filter>
     </ClInclude>
+    <ClInclude Include="test.h">
+      <Filter>playGround\test</Filter>
+    </ClInclude>
     <ClInclude Include="player.h">
-      <Filter>playGround</Filter>
+      <Filter>playGround\player</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy.h">
+      <Filter>playGround\enemyManager\enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -229,6 +244,21 @@
     </ClCompile>
     <ClCompile Include="keyAniManager.cpp">
       <Filter>2DGameFramework\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="test.cpp">
+      <Filter>playGround\test</Filter>
+    </ClCompile>
+    <ClCompile Include="playerState.cpp">
+      <Filter>playGround\player</Filter>
+    </ClCompile>
+    <ClCompile Include="player.cpp">
+      <Filter>playGround\player</Filter>
+    </ClCompile>
+    <ClCompile Include="enemy.cpp">
+      <Filter>playGround\enemyManager\enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
