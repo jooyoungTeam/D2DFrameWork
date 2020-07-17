@@ -5,6 +5,7 @@ class Obstacle : public GameObject
 public:
 	Obstacle();
 	~Obstacle();
+	void test();
 
 	void Init() override;
 	void Release() override;

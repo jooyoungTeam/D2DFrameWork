@@ -25,6 +25,8 @@ HRESULT playGround::init()
 
 	ImageManager::GetInstance()->AddImage("destTest", L"deskTest.png");
 
+	ddddddddddfsadfasfsafsafasfasfsafsafsfas
+
 	GameObject* _Player = new Player();
 	_Player->Init();
 	OBJECTMANAGER->AddObject(ObjectType::Player,_Player);
