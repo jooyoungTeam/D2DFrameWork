@@ -162,6 +162,7 @@
     <ClInclude Include="LibraryHeader.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="Obstacle.h" />
+    <ClInclude Include="player.h" />
     <ClInclude Include="playGround.h" />
     <ClInclude Include="randomFunction.h" />
     <ClInclude Include="Resource.h" />
@@ -192,6 +193,8 @@
     <ClCompile Include="keyManager.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="Obstacle.cpp" />
+    <ClCompile Include="player.cpp" />
+    <ClCompile Include="playerState.cpp" />
     <ClCompile Include="playGround.cpp" />
     <ClCompile Include="sceneManager.cpp" />
     <ClCompile Include="soundManager.cpp" />

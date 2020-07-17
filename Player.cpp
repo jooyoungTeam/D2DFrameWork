@@ -1,87 +1,113 @@
-//test boooooooooom
 #include "stdafx.h"
-#include "Player.h"
-#include "Obstacle.h"
+#include "player.h"
 
-Player::Player()
+HRESULT player::init()
 {
-	mName = "Player";
-	mPosition = Vector2(WINSIZEX / 2, WINSIZEY / 2);
-	mSize = Vector2(50, 50);
-	mRect = RectMakePivot(mPosition, mSize, Pivot::Center);
-	mActive = true;
+	_idle = new idleState();
+	_move = new moveState();
+	_jump = new jumpState();
+
+	_state = _idle;
+	_img = ImageManager::GetInstance()->FindImage("PLAYER_IDLE");
+
+	_x = WINSIZEX / 2;
+	_y = WINSIZEY / 2 + 100;
+	_playerX = _x;
+	_playerY = _y - 110;
+	int rightIdle[] = { 12,13,14,15,16,17,18,19,20,21,22,23 };
+	KEYANIMANAGER->addArrayFrameAnimation("P_RIGHT_IDLE", "PLAYER_IDLE", rightIdle, 12, 10, true);
+	int leftIdle[] = { 11,10,9,8,7,6,5,4,3,2,1,0 };
+	KEYANIMANAGER->addArrayFrameAnimation("P_LEFT_IDLE", "PLAYER_IDLE", leftIdle, 12, 10, true);
+	int rightRun[] = { 12,13,14,15,16,17,18,19,20,21,22,23 };
+	KEYANIMANAGER->addArrayFrameAnimation("P_RIGHT_RUN", "PLAYER_WALK", rightRun, 12, 10, true);
+	int leftRun[] = { 11,10,9,8,7,6,5,4,3,2,1,0 };
+	KEYANIMANAGER->addArrayFrameAnimation("P_LEFT_RUN", "PLAYER_WALK", leftRun, 12, 10, true);
+	int rightJump[] = { 2 };
+	KEYANIMANAGER->addArrayFrameAnimation("P_RIGHT_JUMP", "PLAYER_JUMP", rightJump, 3, 3, true);
+	int leftJump[] = { 3 };
+	KEYANIMANAGER->addArrayFrameAnimation("P_LEFT_JUMP", "PLAYER_JUMP", leftJump, 3, 3, true);
+	//int rightFall[] = { 1 };
+	//KEYANIMANAGER->addArrayFrameAnimation("P_RIGHT_JUMP", "PLAYER_JUMP", rightFall, 3, 3, true);
+	//int leftFall[] = { 4 };
+	//KEYANIMANAGER->addArrayFrameAnimation("P_RIGHT_JUMP", "PLAYER_JUMP", leftFall, 3, 3, true);
+	//int rightLanding[] = { 0 };
+	//KEYANIMANAGER->addArrayFrameAnimation("P_RIGHT_JUMP", "PLAYER_JUMP", rightLanding, 3, 3, true);
+	//int leftLanding[] = { 5 };
+	//KEYANIMANAGER->addArrayFrameAnimation("P_RIGHT_JUMP", "PLAYER_JUMP", leftLanding, 3, 3, true);
+	//_jumpPower = _gravity = 0;
+	_rc = RectMakeCenter(_x, _y, 80, 30);
+	_player = RectMakeCenter(_playerX, _playerY, _img->GetFrameSize().x, _img->GetFrameSize().y);
+	_playerMotion = KEYANIMANAGER->findAnimation("P_RIGHT_IDLE");
+	_playerMotion->start();
+
+	_isJumping = false;
+
+
+	_probeBottom = _rc.bottom;
+
+	return S_OK;
 }
 
-Player::~Player()
+void player::release()
 {
 }
 
-void Player::Init()
+void player::update()
 {
-}
+	KEYANIMANAGER->update();
+	_probeBottom = _rc.bottom;
+	_playerX = _x;
+	//_playerY = _y - 110;
+	_state->update(*this);
+	//for (int i = _probeBottom - 10; i < _probeBottom; ++i)
+	//{
+	//	COLORREF color = GetPixel(ImageManager::GetInstance()->FindImage("pixel1")., (_rc.right + _rc.left) / 2, i);
 
-void Player::Release()
-{
-}
+	//	int r = GetRValue(color);
+	//	int g = GetGValue(color);
+	//	int b = GetBValue(color);
 
-void Player::Update()
-{
-	// 왼
-	if (KEYMANAGER->isStayKeyDown('A'))
+	//	if (r == 255 && g == 0 && b == 255)
+	//	{
+	//		//cout << "들" << endl;
+	//		_isMove = true;
+	//		_rc.bottom += 10;
+	//		_rc.top += 10;
+	//	}
+	//	else
+	//	{
+	//		//cout << "들" << endl;
+	//		_isMove = false;
+	//	}
+
+
+	//}
+	if (!_isMove)
 	{
-		Move(Vector2(-1.f, 0.f), 100.0f);
+		_y += 3;
+
 	}
-	// 오
-	else if (KEYMANAGER->isStayKeyDown('D'))
+	if (!_isJumping)
 	{
-		Move(Vector2(1.f, 0.f), 100.f);
+		_playerY = _y - 110;
 	}
 
-	//아래
-	else if (KEYMANAGER->isStayKeyDown('S'))
-	{
-		Move(Vector2(0.f, 1.f), 100.f);
-	}
+
+
+	_rc = RectMakeCenter(_x, _y, 80, 30);
+	_player = RectMakeCenter(_playerX, _playerY, _img->GetFrameSize().x, _img->GetFrameSize().y);
+
+
+	cout << _isJumping << endl;
 }
 
-void Player::Render()
+void player::render()
 {
-	D2DRenderer::GetInstance()->DrawRectangle(mRect, D2DRenderer::DefaultBrush::Red, 1.f);
-}
+	//Rectangle(getMemDC(), (_rc.right + _rc.left) / 2 - 10, _probeBottom, _rc.right + _rc.left / 2, _probeBottom + 10);
+	
+	D2DRenderer::GetInstance()->DrawRectangle(_player, D2DRenderer::DefaultBrush::Black, 1.f);
+	D2DRenderer::GetInstance()->DrawRectangle(_rc, D2DRenderer::DefaultBrush::Gray, 1.8f);
 
-void Player::Move(Vector2 moveDirection, float speed)
-{
-	// 예시 1
-	mPosition.x += moveDirection.x * speed * TIMEMANAGER->getElapsedTime();
-	mPosition.y += moveDirection.y * speed * TIMEMANAGER->getElapsedTime();
-	mRect = RectMakePivot(mPosition, mSize, Pivot::Center);
+	//_img->aniRender(getMemDC(), _player.left, _player.top, _playerMotion);
 
-	// 예시 2
-	//mPosition += moveDirection * speed * TIMEMANAGER->getElapsedTime();
-	//mRect = RectMakePivot(mPosition, mSize, Pivot::Center);
-	GameObject* obstacle = OBJECTMANAGER->FindObject(ObjectType::TileObject,"Obstacle");
-	if (obstacle != nullptr)
-	{
-		RECT temp;
-		if (IntersectRect(&temp, &mRect.GetRect(), &obstacle->GetRect().GetRect()))
-		{
-			//Obstacle* castObstacle = (Obstacle*)obstacle;             // 이런식으로 형변환 ㄴㄴ(안정성 떨어짐) 캐스팅 방법이 많음
-			Obstacle* castObstacle = dynamic_cast<Obstacle*>(obstacle); // 실패를하면 null값이 변환이 되어서 온다.
-			if (castObstacle != nullptr)
-			{	
-				castObstacle->onCollsion();
-			}
-
-		
-		}
-	}
-
-
-}
-
-void Player::MoveAngle(float angle, float speed)
-{
-	mPosition.x += cosf(angle) * speed * TIMEMANAGER->getElapsedTime();
-	mPosition.y -= sinf(angle) * speed * TIMEMANAGER->getElapsedTime();
-	mRect.Update(mPosition,mSize,Pivot::Center);
 }
