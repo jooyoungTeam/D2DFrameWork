@@ -2,6 +2,7 @@
 #include "playGround.h"
 #include "Obstacle.h"
 
+
 playGround::playGround()
 {
 }
@@ -19,9 +20,10 @@ HRESULT playGround::init()
 	ImageManager::GetInstance()->AddImage("destTest", L"deskTest.png");
 
 	ImageManager::GetInstance()->AddImage("TrapObject", L"TrapObject.png");
-	
-	_x = WINSIZEX / 2;
-	_y = WINSIZEY / 2;
+	_player = new player;
+	_player->init();
+
+
 
 	return S_OK;
 }
@@ -36,14 +38,9 @@ void playGround::release()
 void playGround::update()
 {
 	gameNode::update();
-	
-	CAMERA_M->setX(_x);
-	CAMERA_M->setY(_y);
 
-	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
-	{
-		_x ++;
-	}
+
+	_player->update();
 }
 
 //그리기 전용
@@ -55,9 +52,11 @@ void playGround::render()
 		Image* backImg = ImageManager::GetInstance()->FindImage("destTest");
 		CAMERA_M->render(backImg, 0, 0);
 
-		RECT rc = RectMakeCenter(_x, _y, 100, 100);
+		//RECT rc = RectMakeCenter(_x, _y, 100, 100);
+		//
+		//CAMERA_M->rectangle(FloatRect(rc), D2D1::ColorF::Blue, 1.f);
 
-		CAMERA_M->rectangle(FloatRect(rc), D2D1::ColorF::Blue, 1.f);
+		_player->render();
 
 	}
 	// 백버퍼에 그린 내용들을 화면에 뿌려라.

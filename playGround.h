@@ -1,6 +1,6 @@
 #pragma once
 #include "gameNode.h"
-
+#include "player.h"
 
 class playGround : public gameNode
 {
@@ -9,6 +9,8 @@ private:
 	int   _count;
 	int   _frameX;
 	int   _angleCount;
+	player* _player;
+
 	//class GameObject* _Player;
 	//vector<class Monster*> mMonsterList;
 public:
