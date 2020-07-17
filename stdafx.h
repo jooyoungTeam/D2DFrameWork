@@ -69,6 +69,7 @@ using namespace TTYONE_UTIL;
 #define TXTDATA txtData::getSingleton()
 #define OBJECTMANAGER ObjectManager::getSingleton()
 
+
 #define SAFE_DELETE(p)		{if(p) {delete(p); (p) = NULL;}}
 #define SAFE_RELEASE(p)		{if(p) {(p)->release(); (p) = NULL;}}
 #define SAFE_DELETE_ARRAY(p) {if(p) {delete[](p); (p) = NULL;}}

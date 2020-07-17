@@ -30,6 +30,25 @@ void cameraManager::settingCamera(float left, float top, float width, float heig
 	_maxY = _maxTop  + (_height * 0.5f);
 }
 
+void cameraManager::rectangle(const FloatRect rect,const D2D1::ColorF::Enum& color, float alpha, float strokeWidth)
+{
+	FloatRect rc;
+	rc.left = getRelativeLeft(rect.left);
+	rc.top = getRelativeTop(rect.top);
+	rc.right = getRelativeLeft(rect.right);
+	rc.bottom = getRelativeTop(rect.bottom);
+
+	D2DRenderer::GetInstance()->DrawRectangle(rc, color, alpha, strokeWidth);
+}
+
+void cameraManager::ellipse(float x, float y, const float radius, const D2D1::ColorF::Enum& color, const float alpha, const float strokeWidth)
+{
+	float relativeX = getRelativeLeft(x);
+	float relativeY = getRelativeTop(y);
+	D2DRenderer::GetInstance()->DrawEllipse(Vector2(relativeX, relativeY), radius, color,strokeWidth);
+}
+
+
 void cameraManager::render(Image * img, float destX, float destY)
 {
 	float relativeLeft = getRelativeLeft(destX);
