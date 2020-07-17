@@ -3,74 +3,73 @@
 
 void idleState::update(player & player)
 {
-	if (player.getIsMove())
+	
+	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
-		if (KEYMANAGER->isStayKeyDown(VK_LEFT))
+		//player.setY(player.getY() + 5);
+		//player.setAni(KEYANIMANAGER->findAnimation("P_LEFT_RUN"), IMAGEMANAGER->findImage("PLAYER_WALK"));
+		player.setState(player.getMoveState());
+		player.setDirection(false);
+	}
+	else if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
+	{
+		//player.setY(player.getY() + 5);
+		//player.setAni(KEYANIMANAGER->findAnimation("P_RIGHT_RUN"), IMAGEMANAGER->findImage("PLAYER_WALK"));
+		player.setState(player.getMoveState());
+		player.setDirection(true);
+	}
+
+	if (KEYMANAGER->isStayKeyDown(VK_UP))
+	{
+		if (!player.getDirection())
 		{
 			//player.setY(player.getY() + 5);
 			//player.setAni(KEYANIMANAGER->findAnimation("P_LEFT_RUN"), IMAGEMANAGER->findImage("PLAYER_WALK"));
 			player.setState(player.getMoveState());
-			player.setDirection(false);
 		}
-		else if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
+		if (player.getDirection())
 		{
 			//player.setY(player.getY() + 5);
 			//player.setAni(KEYANIMANAGER->findAnimation("P_RIGHT_RUN"), IMAGEMANAGER->findImage("PLAYER_WALK"));
 			player.setState(player.getMoveState());
-			player.setDirection(true);
 		}
+	}
 
-		if (KEYMANAGER->isStayKeyDown(VK_UP))
+	else if (KEYMANAGER->isStayKeyDown(VK_DOWN))
+	{
+		if (!player.getDirection())
 		{
+			//player.setY(player.getY() + 5);
+			//player.setAni(KEYANIMANAGER->findAnimation("P_LEFT_RUN"), IMAGEMANAGER->findImage("PLAYER_WALK"));
+			player.setState(player.getMoveState());
+		}
+		if (player.getDirection())
+		{
+			//player.setY(player.getY() + 5);
+			//player.setAni(KEYANIMANAGER->findAnimation("P_RIGHT_RUN"), IMAGEMANAGER->findImage("PLAYER_WALK"));
+			player.setState(player.getMoveState());
+		}
+	}
+	if (!player.getIsJumping())
+	{
+		if (KEYMANAGER->isOnceKeyDown('Z'))
+		{
+			player.setJumpPower(10);
+			player.setGravity(0.5f);
+			player.setIsJumping(true);
 			if (!player.getDirection())
 			{
-				//player.setY(player.getY() + 5);
-				//player.setAni(KEYANIMANAGER->findAnimation("P_LEFT_RUN"), IMAGEMANAGER->findImage("PLAYER_WALK"));
-				player.setState(player.getMoveState());
+				//player.setAni(KEYANIMANAGER->findAnimation("P_LEFT_JUMP"), IMAGEMANAGER->findImage("PLAYER_JUMP"));
+				player.setState(player.getJumpState());
 			}
 			if (player.getDirection())
 			{
-				//player.setY(player.getY() + 5);
-				//player.setAni(KEYANIMANAGER->findAnimation("P_RIGHT_RUN"), IMAGEMANAGER->findImage("PLAYER_WALK"));
-				player.setState(player.getMoveState());
-			}
-		}
-
-		else if (KEYMANAGER->isStayKeyDown(VK_DOWN))
-		{
-			if (!player.getDirection())
-			{
-				//player.setY(player.getY() + 5);
-				//player.setAni(KEYANIMANAGER->findAnimation("P_LEFT_RUN"), IMAGEMANAGER->findImage("PLAYER_WALK"));
-				player.setState(player.getMoveState());
-			}
-			if (player.getDirection())
-			{
-				//player.setY(player.getY() + 5);
-				//player.setAni(KEYANIMANAGER->findAnimation("P_RIGHT_RUN"), IMAGEMANAGER->findImage("PLAYER_WALK"));
-				player.setState(player.getMoveState());
-			}
-		}
-		if (!player.getIsJumping())
-		{
-			if (KEYMANAGER->isOnceKeyDown('Z'))
-			{
-				player.setJumpPower(10);
-				player.setGravity(0.5f);
-				player.setIsJumping(true);
-				if (!player.getDirection())
-				{
-					//player.setAni(KEYANIMANAGER->findAnimation("P_LEFT_JUMP"), IMAGEMANAGER->findImage("PLAYER_JUMP"));
-					player.setState(player.getJumpState());
-				}
-				if (player.getDirection())
-				{
-					//player.setAni(KEYANIMANAGER->findAnimation("P_RIGHT_JUMP"), IMAGEMANAGER->findImage("PLAYER_JUMP"));
-					player.setState(player.getJumpState());
-				}
+				//player.setAni(KEYANIMANAGER->findAnimation("P_RIGHT_JUMP"), IMAGEMANAGER->findImage("PLAYER_JUMP"));
+				player.setState(player.getJumpState());
 			}
 		}
 	}
+
 }
 
 void moveState::update(player & player)

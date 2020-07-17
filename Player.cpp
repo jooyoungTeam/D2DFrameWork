@@ -69,7 +69,7 @@ void player::update()
 	_state->update(*this);
 	//for (int i = _probeBottom - 10; i < _probeBottom; ++i)
 	//{
-		COLORREF color = GetPixel(ImageManager::GetInstance()->FindImage("pixel1")., (_rc.right + _rc.left) / 2, i);
+	//	COLORREF color = GetPixel(ImageManager::GetInstance()->FindImage("pixel1")., (_rc.right + _rc.left) / 2, i);
 
 	//	int r = GetRValue(color);
 	//	int g = GetGValue(color);
@@ -90,11 +90,11 @@ void player::update()
 
 
 	//}
-	if (!_isMove)
+	/*if (!_isMove)
 	{
 		_y += 3;
 
-	}
+	}*/
 	if (!_isJumping)
 	{
 		_playerY = _y - 110;
