@@ -35,6 +35,12 @@ void Player::Update()
 	{
 		Move(Vector2(1.f, 0.f), 100.f);
 	}
+
+	//¾Æ·¡
+	else if (KEYMANAGER->isStayKeyDown('S'))
+	{
+		Move(Vector2(0.f, 1.f), 100.f);
+	}
 }
 
 void Player::Render()
