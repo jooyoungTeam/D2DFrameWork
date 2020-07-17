@@ -58,14 +58,8 @@
     <Filter Include="playGround\UI">
       <UniqueIdentifier>{bbf76f10-3ee9-4fd4-9d3a-60a8ddc6f7c4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="playGround\enemyManager">
-      <UniqueIdentifier>{6f0b7fdf-20cc-4884-be9e-7f4a349295c6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="playGround\enemyManager\enemy">
-      <UniqueIdentifier>{7cb407f0-0df5-4663-8593-0422556cdae0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="playGround\enemyManager\enemy\enemyState">
-      <UniqueIdentifier>{3acbdcd2-e50f-4f9b-85ee-be388bae2297}</UniqueIdentifier>
+    <Filter Include="playGround\test">
+      <UniqueIdentifier>{df2bdbe2-143d-474f-94e7-28fa98048217}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -162,9 +156,6 @@
     <ClInclude Include="player.h">
       <Filter>playGround</Filter>
     </ClInclude>
-    <ClInclude Include="enemy.h">
-      <Filter>playGround\enemyManager\enemy</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -238,18 +229,6 @@
     </ClCompile>
     <ClCompile Include="keyAniManager.cpp">
       <Filter>2DGameFramework\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="player.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="playerState.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="UI.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="enemy.cpp">
-      <Filter>playGround\enemyManager\enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
